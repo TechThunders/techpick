@@ -15,7 +15,7 @@
 
 // ── YOUR GOOGLE APPS SCRIPT WEB APP URL ──
 // Replace this after deploying your Apps Script
-const SHEET_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw-Nh9LbQpRSYRz5NyvkJp2PCe05qk-FLKAQY7pTA_4xh5fYdNyYxswGO4SS9q0KaBl/exec';
 
 // ── FETCH ALL POSTS ──
 async function fetchPosts() {
