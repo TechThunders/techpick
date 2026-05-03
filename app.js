@@ -15,7 +15,7 @@
 
 // ── YOUR GOOGLE APPS SCRIPT WEB APP URL ──
 // Replace this after deploying your Apps Script
-const SHEET_URL = 'https://script.google.com/macros/s/AKfycbw-Nh9LbQpRSYRz5NyvkJp2PCe05qk-FLKAQY7pTA_4xh5fYdNyYxswGO4SS9q0KaBl/exec';
+const SHEET_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
 
 // ── FETCH ALL POSTS ──
 async function fetchPosts() {
@@ -40,11 +40,18 @@ async function appendToSheet(rowData) {
       console.warn('Sheet URL not configured.');
       return false;
     }
-    const res = await fetch(SHEET_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'append', row: rowData })
+    const params = new URLSearchParams({
+      action: 'append',
+      date:   rowData[0],
+      type:   rowData[1],
+      title:  rowData[2],
+      desc:   rowData[3],
+      price:  rowData[4],
+      link:   rowData[5],
+      img:    rowData[6],
+      tags:   rowData[7]
     });
+    const res = await fetch(`${SHEET_URL}?${params}`);
     const data = await res.json();
     return data.success === true;
   } catch (e) {
@@ -57,11 +64,7 @@ async function appendToSheet(rowData) {
 async function deleteSheetRow(rowIndex) {
   try {
     if (SHEET_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') return false;
-    const res = await fetch(SHEET_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'delete', index: rowIndex })
-    });
+    const res = await fetch(`${SHEET_URL}?action=delete&index=${rowIndex}`);
     const data = await res.json();
     return data.success === true;
   } catch (e) {
